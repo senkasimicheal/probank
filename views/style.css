@@ -1,0 +1,260 @@
+:root{
+    --gradient:linear-gradient(90deg, #0ea322, #0ea322);
+}
+
+*{
+    font-family: 'Open Sans', sans-serif;
+    margin: 0; padding: 0;
+    box-sizing: border-box;
+    border: none; outline: none;
+    text-decoration: none;
+    text-transform: capitalize;
+    transition: all .2s linear;
+}
+
+*::selection{
+    background: #f39c12;
+    color: #fff;
+}
+
+body{
+    background: url(banking.jpg) no-repeat;
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    position: relative;
+}
+
+header{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0; left: 0;
+    z-index: 1000;
+    padding: 1.5rem 7%;
+    background: var(--gradient);
+    box-shadow: 0 .1rem .3rem rgba(0,0,0,.3);
+}
+
+header .navbar ul{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    list-style: none;
+}
+
+header .navbar ul li{
+    margin: 0 1rem;
+}
+
+header .navbar ul li a{
+    font-size: 1.5rem;
+    color: #fff;
+}
+
+header .navbar ul li a:hover{
+    color: #444;
+}
+
+header #menu{
+    font-size: 3rem;
+    color: #fff;
+    cursor: pointer;
+    display: none;
+}
+
+@media (max-width:768px){
+    html{
+        font-size: 55%;
+    }
+
+    header #menu{
+        display: block;
+    }
+
+    header .navbar{
+        position: fixed;
+        top: -120%; left: 0;
+        width: 100%;
+        background: #444;
+    }
+
+    header .navbar ul{
+        flex-flow: column;
+        padding: 2rem 0;
+    }
+
+    header .navbar ul li{
+        margin: 1.5rem 0;
+        text-align: center;
+        width: 100%;
+    }
+
+    header .navbar ul li a{
+        font-size: 2.5rem;
+        display: block;
+    }
+
+    header .navbar ul li a:hover{
+        color: #f39c12;
+    }
+
+    .fa-times{
+        transform: rotate(180deg);
+    }
+
+    header .navbar.nav-toggle{
+        top: 6.4rem;
+    }
+}
+
+.bank{
+    font-size: 1rem;
+    margin-top: 10.9%;
+}
+
+.bank h2{
+    color: rgb(58, 12, 12);
+    font-weight: bolder;  
+    font-size: x-large;
+    text-align: center;
+}
+
+.newAccount{
+    text-align: center;
+    width: 25rem;
+    background: rgb(74, 160, 104);
+    margin: 0 2rem;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    box-shadow: 0 .1rem .3rem #333;
+    position: relative;
+}
+
+.accountContainer{
+    font-size: 15px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.newAccount .box{
+    width: 100%;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    border-bottom: .2rem solid #666;
+    font-size: 1rem;
+    color: #333;
+    text-transform: none;
+}
+
+.Body h2{
+    text-align: center;
+    font-size: 40px;
+    font-family: 'Times New Roman', Times, serif;
+    font-weight: bold;
+}
+
+.btn{
+    padding: .7rem 3rem;
+    font-size: 2rem;
+    color: #fff;
+    background: var(--gradient);
+    border-radius: 5rem;
+    margin-top: 1rem;
+    cursor: pointer;
+    box-shadow: 0 .1rem .3rem rgba(0,0,0,.3);
+}
+
+.btn:hover{
+    color: rgb(151, 160, 14);
+}
+
+.grid-container {
+    display: grid;
+    grid-template-rows: 150px 150px;
+    grid-template-columns:1fr 1fr 1fr ;
+    grid-template-columns:repeat(3 ,1fr);
+    grid-template-columns:50% repeat(2,1fr);
+}
+
+.transctions{
+    text-align: center;
+    width: 18rem;
+    background: rgb(74, 160, 104);
+    margin: 0 3rem;
+    padding: 1rem 3rem;
+    border-radius: .5rem;
+    box-shadow: 0 .1rem .3rem #333;
+    position: relative;
+}
+
+.depo{
+    margin-right: -50%;
+}
+
+.withd{
+    margin-left: -35%;
+}
+
+.loan{
+    margin: 0 10rem;
+    margin-left: -35%;
+}
+
+.transctions .box{
+    width: 100%;
+    padding: 1rem 0;
+    margin: 1rem 0;
+    border-bottom: .2rem solid #666;
+    font-size: 1rem;
+    color: #333;
+    text-transform: none;
+}
+
+.transNav{
+    font: optional;
+    text-align: center;
+    width: 100%;
+    height: 20%;
+    padding: 1% 1%;
+}
+
+.transheading{
+    font-family: 'Times New Roman', Times, serif;
+    text-decoration: underline;
+    font-size: 40px;
+}
+
+.hdetails{
+    text-align: center;
+    font-size: 35px;
+    text-decoration: underline;
+    font-family: 'Times New Roman', Times, serif;
+}
+
+.details{
+    margin-top: 1%;
+    display: flex;
+    align-items: center;
+    justify-content: center;   
+}
+
+.cont{
+    font-size: large;
+    text-align: center;
+    margin-top: 5%;
+}
+
+#container{
+    color: black;
+    font-size: x-large;
+    text-align: center;
+    font-weight: bolder;
+}
+
+.hpredict{
+    font-size: 200%;
+}

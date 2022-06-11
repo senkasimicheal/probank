@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>your details</title>
+
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    
+    <h2 class="hdetails">Display your account details</h2>
+
+    <div class="details">
+        <form action="/details" method="post" class="newAccount">
+            <input class="box" type="text" placeholder="name" name="name" required>
+            <input class="box" type="email" placeholder="* Email" name="email" required>
+            <input class="btn" type="submit" class="btn" value="show">
+        </form>
+    </div>
+     <div>
+         <p class="cont">Your Account details</p>
+         <p id="container"></p>
+     </div>
+     <script>
+        const container = document.querySelector("#container");
+        
+        const getUser = async () => {
+            const raw_data = await fetch("/getSession");
+            const data = await raw_data.json();
+            const boolean = true;
+            container.innerHTML += "<p>"+ " " + "NAME: " + data["user"].name+",  " +"Account Number: "+ data["user"].accountNumber+"</p><br>";
+        };
+                
+        getUser();
+    </script>
+</body>
+</html>

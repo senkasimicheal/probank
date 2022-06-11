@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>statistics</title>
+    <link rel="preconnect" href="https://fonts.gstatic.com">
+
+    <link href="/favicon.ico" type="image/x-icon" rel="icon" />
+    
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.2/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div>
+        <h2 class="hpredict">MAKE MONTHLY PREDICTIONS OF THE BANK DEPOSITS</h2>
+    </div>
+    <form action="myprediction" method="post" class="newAccount">
+        <input class="box" type="number" min = "100" placeholder="number of clients" name="clients" required>
+        <input class="box" type="number" min = "100" placeholder="Custormers with loans" name="ploans" required>
+        <div class="result"></div>
+        <input class="btn" type="submit" value="predict">
+    </form>
+
+    <script>
+        const form = document.querySelector('form')
+
+        const handleSubmit = async (event) => {
+            event.preventDefault()
+
+            const result_container = document.querySelector('.result')
+
+            const operands = {
+                clients: form.clients.value,
+                ploans: form.ploans.value
+            }
+
+            const res = await fetch('/myprediction', 
+            {
+                method: 'POST',
+                body: JSON.stringify(operands),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+
+            const result = await res.json()
+            console.log(result)
+
+            if(result.status == 200){
+                result_container.innerHTML = `<p style=" color: black; fontsize: x-large;">Projected deposits is Ugx: ${result.depo}</p>`
+                
+            }else if(result.status == 500){
+                result_container.innerHTML = `<p style="color: darkred;">${result.error}</p>`
+                
+            }
+
+        }
+        form.addEventListener('submit', handleSubmit)
+    </script>
+</body>
+</html>
