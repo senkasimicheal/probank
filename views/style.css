@@ -192,13 +192,15 @@ header #menu{
     position: relative;
 }
 
-.withd{
-    margin-left: -10%;
-}
-
 .loan{
-    margin: 0 10rem;
-    margin-left: -10%;
+    position: relative;
+    margin-top: 17%;
+}
+.just{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
 }
 
 .transctions .box{
