@@ -112,7 +112,7 @@ header #menu{
 
 .bank{
     font-size: 1rem;
-    margin-top: 10.9%;
+    margin-top: 20%;
 }
 
 .bank h2{
@@ -173,6 +173,7 @@ header #menu{
 }
 
 .grid-container {
+    display: flex;
     display: grid;
     grid-template-rows: 150px 150px;
     grid-template-columns:1fr 1fr 1fr ;
@@ -191,17 +192,13 @@ header #menu{
     position: relative;
 }
 
-.depo{
-    margin-right: -50%;
-}
-
 .withd{
-    margin-left: -35%;
+    margin-left: -10%;
 }
 
 .loan{
     margin: 0 10rem;
-    margin-left: -35%;
+    margin-left: -10%;
 }
 
 .transctions .box{
@@ -257,4 +254,9 @@ header #menu{
 
 .hpredict{
     font-size: 200%;
+}
+
+.bank p{
+    background: rgba(253, 249, 249, 0.5);
+    font-size: 20px;
 }
