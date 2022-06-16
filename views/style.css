@@ -192,9 +192,9 @@ header #menu{
     position: relative;
 }
 
-.loan{
+.trans{
     position: relative;
-    margin-top: 17%;
+    margin-top: 1%;
 }
 .just{
     display: flex;
@@ -242,12 +242,14 @@ header #menu{
 }
 
 .cont{
+    background: #333;
     font-size: large;
     text-align: center;
     margin-top: 5%;
 }
 
 #container{
+    background: #333;
     color: black;
     font-size: x-large;
     text-align: center;
@@ -261,4 +263,12 @@ header #menu{
 .bank p{
     background: rgba(253, 249, 249, 0.5);
     font-size: 20px;
+}
+
+.putbtn{
+    position: relative;
+    display: flex;
+    float: left;
+    padding: .2rem 1rem;
+    font-size: 1rem;
 }

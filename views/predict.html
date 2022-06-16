@@ -14,15 +14,24 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <div>
-        <h2 class="hpredict">MAKE MONTHLY PREDICTIONS OF THE BANK DEPOSITS</h2>
+
+    <nav class="transNav">
+        <div>
+            <h2 class="transheading">PROJECT BANK</h2>
+            <h2 class="hpredict">MAKE MONTHLY PREDICTIONS OF THE BANK DEPOSITS</h2>
+            <a class="btn putbtn btn" href="index.html">Back home</a>
+        </div>
+    </nav>
+
+    <div class="just">
+        <form action="myprediction" method="post" class="newAccount">
+            <input class="box" type="number" min = "100" placeholder="number of clients" name="clients" required>
+            <input class="box" type="number" min = "100" placeholder="Custormers with loans" name="ploans" required>
+            <div class="result"></div>
+            <input class="btn" type="submit" value="predict">
+        </form>
+    
     </div>
-    <form action="myprediction" method="post" class="newAccount">
-        <input class="box" type="number" min = "100" placeholder="number of clients" name="clients" required>
-        <input class="box" type="number" min = "100" placeholder="Custormers with loans" name="ploans" required>
-        <div class="result"></div>
-        <input class="btn" type="submit" value="predict">
-    </form>
 
     <script>
         const form = document.querySelector('form')
