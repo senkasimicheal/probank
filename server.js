@@ -63,8 +63,7 @@ var userSchema = new mongoose.Schema({
         default: ''
     },
     accountNumber: Number,
-    password1: String,
-    password2: String
+    password1: String
 });
 const User = mongoose.model("user", userSchema);
 
@@ -102,7 +101,7 @@ app.post('/register', async(req, res)=>{
             if(Existemail){
                 res.send("User already exists")
             }else{
-                if(req.body.password1 != req.body.password2){
+                if(req.body.password1 !== req.body.password2){
                     res.send("passwords do not match")
                 }else{
                     var Rnumber = Math.floor(1000000000000 + Math.random() * 9000000000000);
@@ -121,13 +120,13 @@ app.post('/register', async(req, res)=>{
                         accountNumber: Rnumber,
                         password1: hashedPwd
                     });
-                    res.redirect('deposit');
+                    res.render("deposit.html");
                     
                 }
             }
         }
         catch(error){
-            res.status(500).send("Internal Server error Occured");
+            res.send("Internal Server error Occured");
         }
     });
         
