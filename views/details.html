@@ -26,7 +26,7 @@
 
     <div class="details">
         <form action="/details" method="post" class="newAccount">
-            <input class="box" type="text" placeholder="name" name="name" required>
+            <input class="box" type="text" placeholder="Enter full name" name="name" required>
             <input class="box" type="email" placeholder="* Email" name="email" required>
             <input class="btn" type="submit" class="btn" value="show">
         </form>
@@ -41,7 +41,6 @@
         const getUser = async () => {
             const raw_data = await fetch("/getSession");
             const data = await raw_data.json();
-            const boolean = true;
             container.innerHTML += "<p>"+ " " + "NAME: " + data["user"].name+",  " +"Account Number: "+ data["user"].accountNumber+"</p><br>";
         };
                 

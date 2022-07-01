@@ -27,18 +27,23 @@
         <form action="myprediction" method="post" class="newAccount">
             <input class="box" type="number" min = "100" placeholder="number of clients" name="clients" required>
             <input class="box" type="number" min = "100" placeholder="Custormers with loans" name="ploans" required>
+            <!-- THIS IS WHERE THE PREDICTION RESULTS WILL APPEAR -->
             <div class="result"></div>
             <input class="btn" type="submit" value="predict">
         </form>
     
     </div>
 
+    <!-- THIS JAVASCRIPT ADDS FUNCTIONALLITY TO THE PREDICT BUTTON
+    IT SHOWS THE PREDICTIONS MADE -->
     <script>
         const form = document.querySelector('form')
 
+        // THIS HANDLES THE PREDICT BUTTON
         const handleSubmit = async (event) => {
             event.preventDefault()
 
+            //  THE IS WHERE WE DISPLAY THE RESULTS FROM
             const result_container = document.querySelector('.result')
 
             const operands = {
@@ -46,6 +51,7 @@
                 ploans: form.ploans.value
             }
 
+            // THIS FETCHES DATA ENTERED IN THE FORM FROM THE BACK END
             const res = await fetch('/myprediction', 
             {
                 method: 'POST',
@@ -56,8 +62,8 @@
             })
 
             const result = await res.json()
-            console.log(result)
-
+            
+            // THIS CHECKS FOR ERRORS IN THE PROCESS, 200 MEANS A SUCCESS
             if(result.status == 200){
                 result_container.innerHTML = `<p style=" color: black; fontsize: x-large;">Projected deposits is Ugx: ${result.depo}</p>`
                 

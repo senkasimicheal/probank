@@ -1,3 +1,4 @@
+// THESE ARE THE DEPENDENCIES THE SERVER WILL REQUIRE
 var express = require("express");
 const  mongoose = require("mongoose");
 const  bodyParser = require("body-parser");
@@ -8,8 +9,10 @@ const cookieParser = require("cookie-parser");
 const sessions = require("express-session");
 const bcrypt = require("bcrypt");
 
+// this is the port number on which the server will listen
 const port = process.env.PORT || 5000
 
+// functions for getting sessions
 const time = 300000;
 app.use(
     sessions({
@@ -22,7 +25,8 @@ app.use(
 app.use(cookieParser());
 var session;
 
-
+// FUNCTIONS FOR GETTING OUR HTML FILES FROM THE VIEWS FOLDER
+// AND FUNCTIONS FOR SETTING THE VIEW ENGINE TO HTML
 app.use(express.json());
 var engine = require("consolidate");
 const { json } = require("express");
@@ -32,9 +36,12 @@ app.set("view engine", "html");
 app.use(express.urlencoded({ extended: false }));
 app.use(express.static(__dirname + "/views"));
 
+// THIS IS THE LINK TO OUR REMOTE DATABASE THAT IS USED TO STORE USER INFORMATION
 var remoteDB = "mongodb+srv://Senkasi:senkasimicheal@cluster0.rivod.mongodb.net/BankSystem";
+// TRYING TO CONNECT TO THE DATABASE
 mongoose.connect(remoteDB, { useNewUrlParser: true },{ useUnifiedTopology: true });
 
+// THIS IS A USER ACCOUNT REGISTRATION MODEL
 var userSchema = new mongoose.Schema({
     regDate: {
         type: Date,
@@ -67,6 +74,7 @@ var userSchema = new mongoose.Schema({
 });
 const User = mongoose.model("user", userSchema);
 
+// THIS IS A USER DEPOSITS
 var depositSchema = new mongoose.Schema({
     name: String,
     deposit: Number,
@@ -75,6 +83,7 @@ var depositSchema = new mongoose.Schema({
 });
 const Deposit = mongoose.model("deposit", depositSchema);
 
+// THIS IS A USER WITHDRAWS
 var withdrawSchema = new mongoose.Schema({
     name: String,
     withdrawal: Number,
@@ -83,6 +92,7 @@ var withdrawSchema = new mongoose.Schema({
 });
 const Withdraw = mongoose.model("withdraw", withdrawSchema);
 
+// THIS IS A USER LOANS
 var loanSchema = new mongoose.Schema({
     name: String,
     loan: Number,
@@ -90,22 +100,30 @@ var loanSchema = new mongoose.Schema({
 });
 const Loan = mongoose.model("loan", loanSchema);
 
+// GETTING THE ACCOUNT HTML FILE
 app.get('/register', (req, res)=>{
+    // getting account.html file
     res.render("account.html");
 });
+
+// POSTING REGISTRATION DETAILS TO THE DATABASE
 app.post('/register', async(req, res)=>{
     
         try{
-            
+            // CHECKING FOR USERS WITH THE SAME DETAILS IN THE DATABASE
             const Existemail = await User.findOne({email: req.body.email});
             if(Existemail){
                 res.send("User already exists")
             }else{
+                // CHECKING IF PASSWORDS HAVE MATCHED
                 if(req.body.password1 !== req.body.password2){
                     res.send("passwords do not match")
                 }else{
+                    // RANDOM GENERATION OF ACCOUNT NUMBERS
                     var Rnumber = Math.floor(1000000000000 + Math.random() * 9000000000000);
+                    // PROTECTING USER PASSWORD BY GENERATING AN ENCRYPTION KEY
                     const hashedPwd = await bcrypt.hash(req.body.password1, 10);
+                    // STORING INFORMATION IN THE DATABASE
                     const insertUser = await User.create({
                         regDate: Date.now(),
                         name: req.body.name,
@@ -130,16 +148,20 @@ app.post('/register', async(req, res)=>{
         }
     });
         
-        
+
+// MAKING PREDICTIONS
+// GETTING THE HTML PAGE FOR MAKING PREDICTIONS
 app.get('/myprediction', (req, res) => {
     res.render('predict.html')
 })
 
+//POSTING / VIEWING THE PREDICTINOS TO THE USER IN THE FRONT END
 app.post('/myprediction', async (req, res) => {
     const {clients, ploans} = req.body
 
     try{
         const users = await User.find();
+        // TRYING TO CHECK FOR THE ENTRIES
         if(clients && ploans){
             const a = 2749441.935; //in User.find()
             const b = 6146116.003; //in User.find()
@@ -156,19 +178,23 @@ app.post('/myprediction', async (req, res) => {
 
 })
 
+// GETTING THE DEPOSIT.HTML FILE
 app.get('/deposit', (req, res)=>{
-    res.render("transactions.html");
+    res.render("deposit.html");
 });
 
+// POSTING THE DEPOSIT DETAILS TO THE DATABASE
 app.post('/deposit', async(req, res)=>{
     try {
+        // TRYING TO CHECK THE EXISTANCE OF THE USER ACCOUNT
         const Existaccount = await User.findOne({accountNumber: req.body.accountnumber});
         if(Existaccount){
+            // TRYING TO CHECK IF THE PASSWORD IS CORRECT
             const cmp = await bcrypt.compare(req.body.password1, Existaccount.password1);
             if(cmp){
                 const insertDepo = await Deposit.create({
                     name: Existaccount.name,
-                    loan: req.body.loan,
+                    deposit: req.body.deposit,
                     accountnumber: req.body.accountnumber
                 });
                 res.send("Deposit was successful to " + req.body.accountnumber);
@@ -183,10 +209,12 @@ app.post('/deposit', async(req, res)=>{
     }
 });
 
+// GETTING THE WITHDRAW PAGE
 app.get('/withdraw', (req, res)=>{
-    res.render("transactions.html");
+    res.render("withdraw.html");
 });
 
+// POSTING THE WITHDRWAL INFORMATION TO THE DATABASE
 app.post('/withdraw', async(req, res)=>{
     try {
         const Existaccount = await User.findOne({accountnumber: req.body.accountnumber});
@@ -212,10 +240,13 @@ app.post('/withdraw', async(req, res)=>{
     }
 });
 
+
+// GETTING THE LOAN FILE
 app.get('/loan', (req, res)=>{
-    res.render("transactions.html");
+    res.render("loan.html");
 });
 
+// POSTING LOAN INFORMATION TO THE DATABASE
 app.post('/loan', async(req, res)=>{
     try {
         const Existaccount = await User.findOne({accountnumber: req.body.accountnumber});
@@ -241,10 +272,15 @@ app.post('/loan', async(req, res)=>{
         })
     }
 });
+
+// GETTING THE USER DETAILS
 app.get('/details', (req, res)=>{
     res.render("details.html");
 });
+
+// DISPLAYING USER DETAILS TO THE USER
 app.post('/details', async(req, res)=>{
+    // LOOKING FOR THE USER BASED ON THE EMAIL COZ ITS UNIQUE
     const Existemail = await User.findOne({email: req.body.email});
     if(Existemail){
             session = req.session;
@@ -255,18 +291,20 @@ app.post('/details', async(req, res)=>{
     }
 });
 
+// DISPLAY USER AS A SESSION IN THE BROWSER
 app.get("/getSession", async (req, res) => {
     res.json({
       user: req.session.userid,
     });
   });
-  
+  // DISPLAY USER AS A SESSION IN THE BROWSER
   app.get("/list", async (req, res) => {
     res.render("details.html", {
       list: req.session.userid,
     });
   });
 
+//   SERVER PORT LISTENER ON OUR MACHINE
 app.listen(port, ()=> {
     console.log("Server is running on 5000");
   });
